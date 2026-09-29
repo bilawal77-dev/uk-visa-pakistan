@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-<head><link rel="icon" type="image/png" href="/images/logo.png"/><link rel="shortcut icon" href="/images/logo.png"/>
+<head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"/>
     <link rel="icon" type="image/png" href="/images/logo.png"/>
@@ -19,6 +19,26 @@
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #AD8A34; border-radius: 3px; }
+        .tab-btn {
+            white-space: nowrap;
+            transition: all 0.2s ease-in-out;
+        }
+        .tab-btn.active {
+            background-color: #0B3D2E !important;
+            color: #D8B34A !important;
+            border-color: #AD8A34 !important;
+            box-shadow: 0 2px 6px rgba(11, 61, 46, 0.25);
+        }
+        .tab-btn:not(.active) {
+            background-color: #ffffff;
+            color: #334155;
+            border-color: #cbd5e1;
+        }
+        .tab-btn:not(.active):hover {
+            background-color: #f8fafc;
+            border-color: #94a3b8;
+            color: #0B1F3A;
+        }
     </style>
 </head>
 <body class="antialiased bg-white text-slate-900 min-h-screen flex flex-col selection:bg-uk-red selection:text-white">
@@ -45,7 +65,7 @@
                     </span>
                     <div class="flex items-center gap-2 pl-3 border-l border-white/15">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping flex-shrink-0"></span>
-                        <span class="text-[#D8B34A] font-bold uppercase text-[10px] hidden lg:inline">UKVI Ticker:</span>
+                        <span class="text-[#D8B34A] font-bold uppercase text-[10px] hidden lg:inline">UKVI Live Ticker:</span>
                         <span id="top-ticker-msg" class="truncate max-w-[200px] xl:max-w-[320px] text-slate-300 font-sans text-xs">Priority Biometrics available at Gerry's Islamabad, Lahore & Karachi centres.</span>
                     </div>
                 </div>
@@ -82,7 +102,7 @@
                     <li><a href="/" class="block py-3.5 px-4 text-[#F7F2E7] hover:text-[#D8B34A] hover:bg-black/15 transition-colors border-r border-white/10">Home</a></li>
                     <li><a href="/uk-visas" class="block py-3.5 px-4 text-[#F7F2E7] hover:text-[#D8B34A] hover:bg-black/15 transition-colors border-r border-white/10">Visas</a></li>
                     <li><a href="/uk-visa-fees" class="block py-3.5 px-4 text-[#F7F2E7] hover:text-[#D8B34A] hover:bg-black/15 transition-colors border-r border-white/10">Visa Fees</a></li>
-                    <li><a href="/news-updates/" class="block py-3.5 px-4 text-[#D8B34A] bg-black/25 font-bold transition-colors border-r border-white/10">News & Updates</a></li>
+                    <li><a href="/news-updates/" class="block py-3.5 px-4 text-[#D8B34A] bg-black/30 font-bold transition-colors border-r border-white/10 border-b-2 border-b-[#AD8A34]">News & Updates</a></li>
                     <li><a href="/about" class="block py-3.5 px-4 text-[#F7F2E7] hover:text-[#D8B34A] hover:bg-black/15 transition-colors border-r border-white/10">About Us</a></li>
                     <li><a href="/faq" class="block py-3.5 px-4 text-[#F7F2E7] hover:text-[#D8B34A] hover:bg-black/15 transition-colors border-r border-white/10">FAQ</a></li>
                     <li><a href="/resources" class="block py-3.5 px-4 text-[#F7F2E7] hover:text-[#D8B34A] hover:bg-black/15 transition-colors border-r border-white/10">Resources</a></li>
@@ -95,13 +115,13 @@
         </nav>
     </header>
 
-    <!-- Page Banner / Hero -->
-    <section class="pt-40 pb-16 bg-[#0B1F3A] text-white border-b-2 border-[#AD8A34] relative overflow-hidden">
+    <!-- Page Banner / Hero (Clear of fixed header with pt-48 sm:pt-52) -->
+    <section class="pt-48 sm:pt-52 pb-16 bg-[#0B1F3A] text-white border-b-2 border-[#AD8A34] relative overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#AD8A34_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div class="max-w-[1180px] mx-auto px-4 sm:px-6 relative z-10">
-            <div class="flex items-center gap-2 text-xs font-['Cinzel'] uppercase tracking-widest text-[#D8B34A] mb-2">
-                <span class="w-2 h-2 rounded-full bg-[#D8B34A]"></span>
-                <span>Official UKVI & Home Office Intelligence</span>
+            <div class="flex items-center gap-2 text-xs font-['Cinzel'] uppercase tracking-widest text-[#D8B34A] mb-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#D8B34A] inline-block shadow-sm"></span>
+                <span class="font-bold">Official UKVI & Home Office Intelligence</span>
             </div>
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold font-['Cormorant_Garamond'] tracking-tight text-white leading-tight">
                 UK Visa News & Policy Updates
@@ -117,17 +137,17 @@
         <div class="max-w-[1180px] mx-auto px-4 sm:px-6 space-y-10">
 
             <!-- Interactive Filter & Search Bar -->
-            <div class="bg-white p-5 rounded-[2px] border border-[#EEE3CB] border-t-4 border-t-[#0B3D2E] shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+            <div class="bg-white p-5 rounded-[2px] border border-[#EEE3CB] border-t-4 border-t-[#0B3D2E] shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
                 <div class="flex flex-wrap items-center gap-2 font-['Cinzel'] text-xs font-bold uppercase tracking-wider" id="category-filters">
-                    <button data-cat="ALL" class="cat-btn px-4 py-2 rounded-[2px] bg-[#0B3D2E] text-[#D8B34A] border border-[#0B3D2E] transition-all cursor-pointer">All News</button>
-                    <button data-cat="EVISA" class="cat-btn px-4 py-2 rounded-[2px] bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition-all cursor-pointer">eVisa & Digital</button>
-                    <button data-cat="STUDENT" class="cat-btn px-4 py-2 rounded-[2px] bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition-all cursor-pointer">Student & CAS</button>
-                    <button data-cat="WORK" class="cat-btn px-4 py-2 rounded-[2px] bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition-all cursor-pointer">Skilled Worker</button>
-                    <button data-cat="VFS" class="cat-btn px-4 py-2 rounded-[2px] bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition-all cursor-pointer">Gerry's VFS Notices</button>
-                    <button data-cat="FAMILY" class="cat-btn px-4 py-2 rounded-[2px] bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition-all cursor-pointer">Family & Spouse</button>
-                    <button data-cat="POLICY" class="cat-btn px-4 py-2 rounded-[2px] bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition-all cursor-pointer">Policy & Rules</button>
+                    <button data-cat="ALL" class="tab-btn active px-3.5 py-2 rounded-[2px] border text-xs cursor-pointer font-bold">All News</button>
+                    <button data-cat="EVISA" class="tab-btn px-3.5 py-2 rounded-[2px] border text-xs cursor-pointer font-bold">eVisa & Digital</button>
+                    <button data-cat="STUDENT" class="tab-btn px-3.5 py-2 rounded-[2px] border text-xs cursor-pointer font-bold">Student & CAS</button>
+                    <button data-cat="WORK" class="tab-btn px-3.5 py-2 rounded-[2px] border text-xs cursor-pointer font-bold">Skilled Worker</button>
+                    <button data-cat="VFS" class="tab-btn px-3.5 py-2 rounded-[2px] border text-xs cursor-pointer font-bold">Gerry's VFS Notices</button>
+                    <button data-cat="FAMILY" class="tab-btn px-3.5 py-2 rounded-[2px] border text-xs cursor-pointer font-bold">Family & Spouse</button>
+                    <button data-cat="POLICY" class="tab-btn px-3.5 py-2 rounded-[2px] border text-xs cursor-pointer font-bold">Policy & Rules</button>
                 </div>
-                <div class="relative min-w-[260px]">
+                <div class="relative min-w-[260px] lg:min-w-[280px]">
                     <input type="text" id="news-search" placeholder="Search UK visa updates..." class="w-full px-4 py-2.5 pl-9 rounded-[2px] border border-slate-300 text-xs font-sans focus:outline-none focus:border-[#AD8A34] bg-slate-50"/>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400 absolute left-2.5 top-3"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
                 </div>
@@ -137,7 +157,7 @@
             <div id="urgent-banner" class="bg-gradient-to-r from-[#0B1F3A] to-[#0B3D2E] text-white p-6 sm:p-8 rounded-[2px] border-2 border-[#AD8A34] shadow-xl relative overflow-hidden">
                 <div class="flex items-center justify-between gap-4 mb-4">
                     <span class="px-3 py-1 rounded-[2px] bg-[#6B0E1A] text-[#F1E6C8] text-xs font-['Cinzel'] font-bold uppercase tracking-widest border border-[#AD8A34]">Urgently Required Action</span>
-                    <span class="text-xs font-['Cinzel'] text-[#D8B34A]">Home Office Mandatory Notice</span>
+                    <span class="text-xs font-['Cinzel'] text-[#D8B34A] font-bold">Home Office Mandatory Notice</span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-bold font-['Cormorant_Garamond'] text-white mb-3">
                     UK Transition to Digital eVisas: All Physical BRP Cards Phased Out
@@ -156,83 +176,98 @@
                 </div>
             </div>
 
-            <!-- Loading State -->
-            <div id="loading-indicator" class="text-center py-12">
-                <div class="inline-block w-8 h-8 border-4 border-[#0B3D2E] border-t-[#D8B34A] rounded-full animate-spin"></div>
-                <p class="font-['Cinzel'] text-xs uppercase tracking-widest text-[#0B1F3A] mt-3">Loading Live Updates...</p>
-            </div>
-
             <!-- Dynamic News Grid -->
             <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Rendered dynamically via JavaScript from /api/news.php -->
+                <!-- Rendered dynamically via JavaScript -->
             </div>
 
         </div>
     </section>
 
     <!-- News Article Detail Modal -->
-    <div id="news-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div id="news-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-[2px] border-2 border-[#AD8A34] max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative shadow-2xl custom-scrollbar">
-            <button id="close-modal" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 transition-colors cursor-pointer text-lg font-bold">&times;</button>
+            <button id="close-modal" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 transition-colors cursor-pointer text-xl font-bold">&times;</button>
             <div id="modal-content" class="space-y-4">
                 <!-- Dynamic Modal Content -->
             </div>
         </div>
     </div>
 
-    <!-- Royal Footer -->
-    <footer class="bg-[#0B1F3A] text-white border-t-4 border-[#AD8A34] pt-14 pb-8">
+    <!-- Official Royal Footer (Full 4-column balanced layout with Logo) -->
+    <footer class="bg-[#0B1F3A] text-[#C9CDD3] border-t-2 border-[#AD8A34] pt-16 pb-8 font-['EB_Garamond']">
         <div class="max-w-[1180px] mx-auto px-4 sm:px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-white/10">
-                <div class="space-y-4 md:col-span-1">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                <div class="space-y-4">
                     <div class="flex items-center gap-3">
-                        <img src="/images/logo.png" alt="UK Visa Pakistan Logo" class="w-10 h-10 object-contain filter drop-shadow"/>
+                        <img src="/images/logo.png" alt="UK Visa Pakistan Logo" class="w-12 h-12 object-contain filter drop-shadow"/>
                         <div>
-                            <span class="font-['Cormorant_Garamond'] text-xl font-bold text-white block">UK Visa Pakistan</span>
-                            <span class="font-['Cinzel'] text-[9px] tracking-widest text-[#D8B34A] uppercase block">Immigration Consultancy</span>
+                            <span class="font-['Cormorant_Garamond'] text-2xl font-bold text-white block leading-none">UK Visa Pakistan</span>
+                            <span class="font-['Cinzel'] text-[10px] tracking-[0.2em] text-[#D8B34A] uppercase block mt-1">Specialist UK Visa Consultants</span>
                         </div>
                     </div>
-                    <p class="text-xs text-slate-300 font-['EB_Garamond'] leading-relaxed">
-                        Pakistan's premier specialist UK immigration advisers. High-accuracy casework for student, skilled worker, settlement and business visas.
-                    </p>
+                    <p class="text-base text-slate-300 leading-relaxed">Blue Area, Islamabad, Pakistan</p>
+                    <p class="text-sm text-slate-400">Chartered guidance on every UK visa category, prepared to Home Office standard by a Pakistan-based consultancy.</p>
                 </div>
-                <div>
-                    <h4 class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider text-[#D8B34A] mb-4">Visa Routes</h4>
-                    <ul class="space-y-2 text-xs text-slate-300 font-['EB_Garamond']">
-                        <li><a href="/uk-visa-categories/student-visa" class="hover:text-white transition-colors">Student Visa (CAS)</a></li>
-                        <li><a href="/uk-visa-categories/skilled-worker-visa" class="hover:text-white transition-colors">Skilled Worker Visa</a></li>
-                        <li><a href="/uk-visa-categories/family-partner-spouse-visa" class="hover:text-white transition-colors">Spouse Settlement Visa</a></li>
-                        <li><a href="/uk-visa-categories/standard-visitor-visa" class="hover:text-white transition-colors">Standard Visitor Visa</a></li>
-                        <li><a href="/uk-visa-categories/global-talent-visa" class="hover:text-white transition-colors">Global Talent Visa</a></li>
+                <div class="space-y-3">
+                    <h3 class="font-['Cinzel'] text-xs font-bold uppercase tracking-[0.18em] text-[#D8B34A]">Visa Categories</h3>
+                    <ul class="space-y-2 text-sm text-slate-300 list-none m-0 p-0 font-['EB_Garamond']">
+                        <li><a href="/uk-visa-categories/skilled-worker-visa" class="hover:text-white hover:underline transition-colors">Skilled Worker Visa</a></li>
+                        <li><a href="/uk-visa-categories/family-dependent-child-visa" class="hover:text-white hover:underline transition-colors">Family Visa — Dependent Child</a></li>
+                        <li><a href="/uk-visa-categories/family-partner-spouse-visa" class="hover:text-white hover:underline transition-colors">Family Visa — Partner / Spouse</a></li>
+                        <li><a href="/uk-visa-categories/child-student-visa" class="hover:text-white hover:underline transition-colors">Child Student Visa</a></li>
+                        <li><a href="/uk-visa-categories/student-visa" class="hover:text-white hover:underline transition-colors">Student Visa (CAS)</a></li>
+                        <li><a href="/uk-visa-categories/private-medical-treatment-visa" class="hover:text-white hover:underline transition-colors">Private Medical Treatment Visa</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider text-[#D8B34A] mb-4">Official Updates</h4>
-                    <ul class="space-y-2 text-xs text-slate-300 font-['EB_Garamond']">
-                        <li><a href="/news-updates/" class="hover:text-white transition-colors text-[#D8B34A]">All Policy News & Updates</a></li>
-                        <li><a href="/uk-visa-fees" class="hover:text-white transition-colors">2026 UK Visa Fee Schedule</a></li>
-                        <li><a href="/resources" class="hover:text-white transition-colors">Document Checklist Guide</a></li>
-                        <li><a href="/faq" class="hover:text-white transition-colors">Frequently Asked Questions</a></li>
-                        <li><a href="/admin/" class="hover:text-white transition-colors opacity-75">Staff Admin Portal</a></li>
+                <div class="space-y-3">
+                    <h3 class="font-['Cinzel'] text-xs font-bold uppercase tracking-[0.18em] text-[#D8B34A]">Quick Links</h3>
+                    <ul class="space-y-2 text-sm text-slate-300 list-none m-0 p-0 font-['EB_Garamond']">
+                        <li><a href="/news-updates/" class="text-[#D8B34A] hover:underline font-bold transition-colors">UK Visa News & Policy Updates</a></li>
+                        <li><a href="/uk-visas" class="hover:text-white hover:underline transition-colors">All Visa Categories</a></li>
+                        <li><a href="/uk-visa-fees" class="hover:text-white hover:underline transition-colors">Visa Fees & Charges</a></li>
+                        <li><a href="/about" class="hover:text-white hover:underline transition-colors">About Our Practice</a></li>
+                        <li><a href="/faq" class="hover:text-white hover:underline transition-colors">Frequently Asked Questions</a></li>
+                        <li><a href="/resources" class="hover:text-white hover:underline transition-colors">Document Checklists (PDFs)</a></li>
+                        <li><a href="/disclaimer" class="hover:text-white hover:underline transition-colors">Legal Disclaimer</a></li>
+                        <li><a href="/contact" class="hover:text-white hover:underline transition-colors">Contact Us (Islamabad)</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="font-['Cinzel'] text-xs font-bold uppercase tracking-wider text-[#D8B34A] mb-4">Islamabad Office</h4>
-                    <p class="text-xs text-slate-300 font-['EB_Garamond'] leading-relaxed mb-3">
-                        Executive Suite 402, Blue Area, Jinnah Avenue, Islamabad, Pakistan.
-                    </p>
-                    <p class="text-xs text-slate-300 font-['EB_Garamond']">
-                        Direct: <a href="tel:+923001234567" class="text-[#D8B34A] hover:underline">+92 300 1234567</a><br/>
-                        Email: <a href="mailto:info@ukvisapakistan.com" class="text-[#D8B34A] hover:underline">info@ukvisapakistan.com</a>
-                    </p>
+                <div class="space-y-3">
+                    <h3 class="font-['Cinzel'] text-xs font-bold uppercase tracking-[0.18em] text-[#D8B34A]">Reach Us</h3>
+                    <ul class="space-y-2.5 text-sm text-slate-300 list-none m-0 p-0 font-['EB_Garamond']">
+                        <li class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#AD8A34] flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 16 14"></polyline></svg>
+                            <span>Mon–Sat, 10:00–18:00</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#AD8A34] flex-shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                            <a href="mailto:info@ukvisapakistan.com" class="text-[#D8B34A] hover:underline">info@ukvisapakistan.com</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#AD8A34] flex-shrink-0"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span>Blue Area, Islamabad</span>
+                        </li>
+                        <li class="pt-2">
+                            <div class="p-3 rounded-[2px] bg-white/5 border border-white/10 text-xs text-slate-400">Senior caseworkers in Islamabad, Lahore & Karachi.</div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 font-['EB_Garamond'] gap-3">
-                <p>&copy; 2026 UK Visa Pakistan. All rights reserved.</p>
-                <div class="flex items-center gap-4 text-[11px] font-['Cinzel'] uppercase tracking-wider">
-                    <a href="/disclaimer" class="hover:text-white transition-colors">Legal Disclaimer</a>
+            <div class="py-8 border-b border-white/10 text-xs text-slate-400 leading-relaxed font-['EB_Garamond']">
+                <p class="m-0"><strong class="text-white font-['Cinzel'] tracking-wider uppercase">Disclaimer:</strong> All visa applications are prepared and submitted professionally by our expert consultants; however, UK Visa Pakistan does not guarantee visa approval under any circumstances. The grant or refusal of any UK visa remains the sole discretion of the UK Home Office, UK Visas & Immigration (UKVI) and the relevant British Diplomatic Mission. All advisory services strictly comply with UK Immigration Rules. <a class="text-[#D8B34A] hover:underline" href="/disclaimer/">Read the full disclaimer &rarr;</a></p>
+            </div>
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-['Cinzel'] tracking-wider uppercase">
+                <div>&copy; 2026 UK Visa Pakistan &mdash; Registered Visa Consultancy, Pakistan. All Rights Reserved.</div>
+                <div class="flex items-center gap-4">
+                    <a href="/disclaimer" class="hover:text-white transition-colors">Privacy Policy</a>
                     <span>&middot;</span>
-                    <a href="/contact" class="hover:text-white transition-colors">Privacy & Terms</a>
+                    <a href="/contact" class="hover:text-white transition-colors">Terms of Service</a>
+                    <span>&middot;</span>
+                    <a class="text-[#D8B34A] hover:text-white transition-colors font-bold flex items-center gap-1" href="/admin/">
+                        <span>Staff Portal</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </a>
                 </div>
             </div>
         </div>
@@ -240,82 +275,141 @@
 </main>
 
 <script>
-let allNews = [];
+// Bundled comprehensive initial news items so cards render IMMEDIATELY with zero delay
+const defaultNews = [
+    {
+        id: 'update-evisa-transition-2026',
+        title: 'Transition to Digital UK eVisa: Phasing out BRPs for Pakistani Applicants',
+        category: 'EVISA',
+        catLabel: 'eVisa & Digital',
+        priority: 'Urgent Transition',
+        date: '29 September 2026',
+        readTime: '5 min read',
+        excerpt: 'UKVI is actively replacing physical Biometric Residence Permits (BRPs) and vignette sticker stamps with digital eVisas. Pakistani passport holders with valid UK leave must link their passports to a UKVI account before international travel.',
+        content: 'The UK Visas and Immigration (UKVI) department is completing its transition to a fully digital immigration system. Physical immigration documents, including Biometric Residence Permits (BRPs), Biometric Residence Cards (BRCs), and passport vignette endorsement stickers, are being phased out in favour of digital eVisas.\n\nKey Guidelines for Pakistani Applicants & Residents:\n1. Creating your UKVI Account: Individuals residing in the UK or holding valid indefinite or temporary leave must create a UKVI account via gov.uk/evisa to access their digital status.\n2. Linking Pakistani Passport: Ensure your current Pakistani passport number and details are strictly identical in your UKVI account. If you renew your passport in Pakistan or at the High Commission in London, immediately update the details online.\n3. Travel Verification: Airlines boarding passengers in Islamabad, Karachi, and Lahore will digitally verify visa status before boarding.\n4. Share Codes: Landlords and employers in the UK will now only accept online share codes generated from your UKVI portal for right-to-rent and right-to-work checks.',
+        sourceUrl: 'https://www.gov.uk/guidance/online-immigration-status-evisa',
+        image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=75',
+        featured: true
+    },
+    {
+        id: 'update-student-cas-funds-2026',
+        title: 'Student Route (CAS) Financial Maintenance & Pakistani Bank Account Rules',
+        category: 'STUDENT',
+        catLabel: 'Student & CAS',
+        priority: 'Financial Rule',
+        date: '18 September 2026',
+        readTime: '4 min read',
+        excerpt: 'Home Office enforces updated maintenance fund levels for Pakistani students. Bank statements must strictly demonstrate funds held uninterrupted for 28 consecutive days prior to application submission.',
+        content: 'Applying for a UK Student visa from Pakistan requires strict financial compliance under Appendix Student of the UK Immigration Rules.\n\nCritical Checklist for Autumn/Winter Intake:\n1. Maintenance Amounts: Students intending to study in Inner London must demonstrate £1,483 per month (up to 9 months, £13,347 maximum). For institutions outside London, the requirement is £1,136 per month (up to 9 months, £10,224 maximum) plus any remaining tuition fee balance.\n2. The 28-Day Holding Rule: Funds must be held in an acceptable financial institution in Pakistan for a minimum continuous 28-day period.\n3. Acceptable SBP-Regulated Banks: Accounts must be with banks regulated by the State Bank of Pakistan (SBP) where electronic verification can be performed by the British High Commission.\n4. Credibility Interviews: Expect potential UKVI credibility interviews regarding course choice, academic progression, and post-study career trajectory.',
+        sourceUrl: 'https://www.gov.uk/student-visa',
+        image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=75',
+        featured: false
+    },
+    {
+        id: 'update-vfs-priority-slots-2026',
+        title: 'Gerry\'s VFS Visa Application Centres: Priority & Prime-Time Appointments in Pakistan',
+        category: 'VFS',
+        catLabel: 'Gerry\'s VFS Notices',
+        priority: 'VFS Centre Alert',
+        date: '10 September 2026',
+        readTime: '3 min read',
+        excerpt: 'Gerry\'s VFS centres in Islamabad, Lahore, Karachi, and Mirpur announce revised appointment allocation schedules, VIP Premium Lounge enhancements, and biometrics collection procedures.',
+        content: 'Visa applicants across Pakistan booking biometrics through the Gerry\'s Visa Application Centres (VAC) in Islamabad, Lahore, Karachi, and Mirpur should take note of updated operational protocols.\n\nImportant Centre Information:\n1. Prime Time & Priority Slots: Priority Visa service (5-working-day target decision) and Super Priority Visa appointment slots are released every weekday morning at 08:30 AM PKT on the VFS portal.\n2. Document Scanning & Submission: Applicants are strongly advised to upload all supporting documents electronically at least 24 hours prior to their biometrics appointment.\n3. Original Passports & CNIC: Ensure your original valid Pakistani passport, previous expired passports with travel history, and original CNIC/Smart Card are brought to the centre.\n4. Mirpur & Islamabad Advisory: Demand at the Mirpur Azad Kashmir and Islamabad centres remains high. Schedule appointments at least 3 weeks before travel.',
+        sourceUrl: 'https://visa.vfsglobal.com/pak/en/gbr/',
+        image: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=75',
+        featured: false
+    },
+    {
+        id: 'update-skilled-worker-salary-2026',
+        title: 'Skilled Worker Route: Minimum Salary Thresholds & Certificate of Sponsorship (CoS)',
+        category: 'WORK',
+        catLabel: 'Skilled Worker',
+        priority: 'Policy Update',
+        date: '28 August 2026',
+        readTime: '6 min read',
+        excerpt: 'Detailed overview of the general £38,700 salary threshold for new Skilled Worker applications, the Immigration Salary List (ISL), and sponsor licence verification for Pakistani professionals.',
+        content: 'Pakistani professionals pursuing career opportunities in the UK under the Skilled Worker visa route must satisfy stringent Home Office requirements following the reform of economic migration.\n\nKey Requirements for Pakistani Applicants:\n1. Defined Certificate of Sponsorship (DCoS): Overseas applicants outside the UK require an approved Defined CoS from a Home Office licensed A-rated sponsor.\n2. General Salary Floor: The baseline general salary threshold is £38,700 per annum or the standard going rate for the SOC code, whichever is higher.\n3. Health & Care and Immigration Salary List (ISL): Eligible health and care roles benefit from lower salary thresholds, though restrictions on bringing family dependents continue to apply for care workers.\n4. English Language Proficiency: Proof of B1 level CEFR English proficiency through an approved SELT centre.',
+        sourceUrl: 'https://www.gov.uk/skilled-worker-visa',
+        image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=75',
+        featured: false
+    },
+    {
+        id: 'update-spouse-settlement-rules-2026',
+        title: 'UK Spouse & Partner Settlement: Income Thresholds & Appendix FM Guidance',
+        category: 'FAMILY',
+        catLabel: 'Family & Spouse',
+        priority: 'Settlement Advisory',
+        date: '15 August 2026',
+        readTime: '5 min read',
+        excerpt: 'Navigating the minimum income requirement, genuine relationship evidence (Nikahnama and NADRA registration), and accommodation checks for Pakistani spouses joining partners in the UK.',
+        content: 'Spousal and partner settlement applications under Appendix FM represent one of the most thoroughly audited visa categories for Pakistani applicants.\n\nCrucial Evidence Requirements:\n1. Minimum Income Requirement (MIR): Sponsoring partner in the UK must meet the required financial threshold through salaried employment or cash savings.\n2. Genuine & Subsisting Relationship: Submit NADRA Marriage Registration Certificate (MRC), Urdu Nikahnama, wedding photographs, joint travel documentation, and financial remittances.\n3. English Language Test A1: The applicant in Pakistan must pass an approved UKVI CEFR A1 Speaking and Listening test.\n4. UK Accommodation Audit: An independent property inspection report confirming the UK property complies with Public Health Acts.',
+        sourceUrl: 'https://www.gov.uk/uk-family-visa/partner-spouse',
+        image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=75',
+        featured: false
+    },
+    {
+        id: 'update-selt-centres-pakistan-2026',
+        title: 'Approved SELT English Test Providers & Tuberculosis (TB) Screening in Pakistan',
+        category: 'POLICY',
+        catLabel: 'Policy & Rules',
+        priority: 'Official Notice',
+        date: '05 August 2026',
+        readTime: '4 min read',
+        excerpt: 'List of authorized IOM medical clinics for mandatory TB clearance certificates and approved Secure English Language Test (SELT) centres across Pakistan.',
+        content: 'All Pakistani residents applying to visit the UK for more than 6 months (such as Work, Study, or Settlement visas) must obtain medical clearance and certified English test credentials.\n\nMandatory Testing Details:\n1. Tuberculosis (TB) Clearance: TB testing must be completed exclusively at an official International Organization for Migration (IOM) clinic in Islamabad, Lahore, Karachi, or Mirpur.\n2. Validity Period: The IOM TB medical certificate is valid for 6 months from the date of the chest X-ray.\n3. Approved SELT Test Providers: Tests must be taken as IELTS for UKVI (British Council / AEO), Pearson PTE Academic UKVI, or PSI Skills for English UKVI.',
+        sourceUrl: 'https://www.gov.uk/tb-test-visa',
+        image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=75',
+        featured: false
+    }
+];
+
+let allNews = [...defaultNews];
 let activeCategory = 'ALL';
 let searchQuery = '';
-
-async function fetchNews() {
-    const loading = document.getElementById('loading-indicator');
-    if (loading) loading.style.display = 'block';
-
-    try {
-        const res = await fetch('/api/news.php');
-        if (res.ok) {
-            const data = await res.json();
-            if (data && data.success && Array.isArray(data.data)) {
-                allNews = data.data;
-            }
-        }
-    } catch (e) {
-        console.warn('Failed to fetch news from API, falling back to local storage', e);
-    }
-
-    // Merge with any custom articles in localStorage if exists
-    try {
-        const stored = localStorage.getItem('ukvisa_insights_articles');
-        if (stored) {
-            const local = JSON.parse(stored);
-            if (Array.isArray(local) && local.length > 0) {
-                // Prepend unique local articles not already present
-                local.forEach(l => {
-                    if (!allNews.some(n => n.id === l.id)) {
-                        allNews.unshift({
-                            id: l.id,
-                            title: l.title,
-                            category: (l.category || 'POLICY').toUpperCase(),
-                            catLabel: l.category || 'Policy Update',
-                            priority: 'Admin Update',
-                            date: l.date || 'Recent',
-                            readTime: l.readTime || '4 min read',
-                            excerpt: l.excerpt || '',
-                            content: l.excerpt || '',
-                            sourceUrl: 'https://www.gov.uk/browse/visas-immigration',
-                            image: l.image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=75',
-                            featured: false,
-                            status: 'published'
-                        });
-                    }
-                });
-            }
-        }
-    } catch(e){}
-
-    if (loading) loading.style.display = 'none';
-    renderNews();
-}
 
 function renderNews() {
     const grid = document.getElementById('news-grid');
     if (!grid) return;
     grid.innerHTML = '';
 
+    const q = searchQuery.toLowerCase().trim();
+
     const filtered = allNews.filter(item => {
         const itemCat = (item.category || '').toUpperCase();
-        const matchesCat = (activeCategory === 'ALL') || itemCat.includes(activeCategory);
-        const q = searchQuery.toLowerCase();
+        let matchesCat = false;
+
+        if (activeCategory === 'ALL') {
+            matchesCat = true;
+        } else if (activeCategory === 'EVISA') {
+            matchesCat = itemCat.includes('EVISA') || itemCat.includes('DIGITAL');
+        } else if (activeCategory === 'STUDENT') {
+            matchesCat = itemCat.includes('STUDENT') || itemCat.includes('CAS');
+        } else if (activeCategory === 'WORK') {
+            matchesCat = itemCat.includes('WORK') || itemCat.includes('SKILLED');
+        } else if (activeCategory === 'VFS') {
+            matchesCat = itemCat.includes('VFS') || itemCat.includes('GERRY');
+        } else if (activeCategory === 'FAMILY') {
+            matchesCat = itemCat.includes('FAMILY') || itemCat.includes('SPOUSE');
+        } else if (activeCategory === 'POLICY') {
+            matchesCat = itemCat.includes('POLICY') || itemCat.includes('RULE') || itemCat.includes('NOTICE') || itemCat.includes('GUIDE');
+        } else {
+            matchesCat = itemCat.includes(activeCategory);
+        }
+
         const matchesSearch = !q || 
             (item.title && item.title.toLowerCase().includes(q)) || 
             (item.excerpt && item.excerpt.toLowerCase().includes(q)) ||
             (item.content && item.content.toLowerCase().includes(q));
+
         return matchesCat && matchesSearch;
     });
 
     if (filtered.length === 0) {
         grid.innerHTML = `
-            <div class="col-span-full text-center py-16 bg-white border border-[#EEE3CB] rounded-[2px] p-8">
-                <p class="font-['Cormorant_Garamond'] text-2xl font-bold text-[#0B1F3A]">No updates found</p>
-                <p class="font-['EB_Garamond'] text-base text-slate-500 mt-2">No news items matched your filter or search query. Try clearing the search or choosing another category.</p>
-                <button onclick="clearSearch()" class="mt-4 px-4 py-2 rounded-[2px] bg-[#0B3D2E] text-[#D8B34A] font-['Cinzel'] text-xs uppercase font-bold cursor-pointer">Reset Filters</button>
+            <div class="col-span-full text-center py-16 bg-white border border-[#EEE3CB] rounded-[2px] p-8 shadow-sm">
+                <p class="font-['Cormorant_Garamond'] text-2xl font-bold text-[#0B1F3A]">No updates found in this category</p>
+                <p class="font-['EB_Garamond'] text-base text-slate-500 mt-2">No updates match your selected search or filter. Click below to show all updates.</p>
+                <button onclick="resetFilters()" class="mt-4 px-5 py-2.5 rounded-[2px] bg-[#0B3D2E] text-[#D8B34A] font-['Cinzel'] text-xs uppercase font-bold cursor-pointer hover:bg-[#1D5C43] transition-colors">Show All Updates</button>
             </div>
         `;
         return;
@@ -333,9 +427,9 @@ function renderNews() {
             <div>
                 <div class="relative h-48 w-full overflow-hidden bg-[#0B1F3A]">
                     <img src="${imgUrl}" alt="${escapeHtml(item.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <span class="absolute bottom-3 left-4 text-[10px] font-['Cinzel'] font-bold tracking-widest uppercase px-2.5 py-1 rounded-[2px] bg-[#0B3D2E] text-[#D8B34A] border border-[#AD8A34]/50">${escapeHtml(catBadge)}</span>
-                    ${item.featured ? '<span class="absolute top-3 right-3 text-[9px] font-[\'Cinzel\'] font-bold uppercase tracking-wider px-2 py-0.5 rounded-[2px] bg-[#6B0E1A] text-[#F1E6C8] border border-[#AD8A34]">Featured</span>' : ''}
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent"></div>
+                    <span class="absolute bottom-3 left-4 text-[10px] font-['Cinzel'] font-bold tracking-widest uppercase px-2.5 py-1 rounded-[2px] bg-[#0B3D2E] text-[#D8B34A] border border-[#AD8A34]/50 shadow">${escapeHtml(catBadge)}</span>
+                    ${item.featured ? '<span class="absolute top-3 right-3 text-[9px] font-[\'Cinzel\'] font-bold uppercase tracking-wider px-2 py-0.5 rounded-[2px] bg-[#6B0E1A] text-[#F1E6C8] border border-[#AD8A34] shadow">Featured</span>' : ''}
                 </div>
                 <div class="p-6 space-y-2">
                     <div class="flex items-center justify-between text-xs font-['Cinzel'] text-[#6B0E1A] font-bold uppercase tracking-wider">
@@ -379,7 +473,6 @@ function openModal(id) {
     const govLink = item.sourceUrl || 'https://www.gov.uk/browse/visas-immigration';
     const waText = encodeURIComponent(`Hello UK Visa Pakistan, I read the update: "${item.title}" and would like to consult your advisors.`);
 
-    // Format paragraphs
     const paragraphs = (item.content || item.excerpt || '')
         .split('\n')
         .filter(p => p.trim().length > 0)
@@ -417,16 +510,15 @@ function openModal(id) {
     document.getElementById('news-modal').classList.remove('hidden');
 }
 
-function clearSearch() {
+function resetFilters() {
     searchQuery = '';
     activeCategory = 'ALL';
     const searchInput = document.getElementById('news-search');
     if (searchInput) searchInput.value = '';
-    document.querySelectorAll('.cat-btn').forEach(b => {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
         if (b.getAttribute('data-cat') === 'ALL') {
-            b.className = 'cat-btn px-4 py-2 rounded-[2px] bg-[#0B3D2E] text-[#D8B34A] border border-[#0B3D2E] transition-all cursor-pointer';
-        } else {
-            b.className = 'cat-btn px-4 py-2 rounded-[2px] bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition-all cursor-pointer';
+            b.classList.add('active');
         }
     });
     renderNews();
@@ -442,38 +534,59 @@ document.getElementById('news-modal').addEventListener('click', (e) => {
     }
 });
 
+// Category Tab Click Handler
 document.getElementById('category-filters').addEventListener('click', (e) => {
-    const btn = e.target.closest('.cat-btn');
+    const btn = e.target.closest('.tab-btn');
     if (btn) {
-        document.querySelectorAll('.cat-btn').forEach(b => {
-            b.className = 'cat-btn px-4 py-2 rounded-[2px] bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition-all cursor-pointer';
-        });
-        btn.className = 'cat-btn px-4 py-2 rounded-[2px] bg-[#0B3D2E] text-[#D8B34A] border border-[#0B3D2E] transition-all cursor-pointer';
-        activeCategory = btn.getAttribute('data-cat');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.getAttribute('data-cat') || 'ALL';
         renderNews();
     }
 });
 
+// Live Search Input Handler
 document.getElementById('news-search').addEventListener('input', (e) => {
     searchQuery = e.target.value;
     renderNews();
 });
 
-// Live Announcement Ticker fetch
-async function loadAnnouncement() {
+// Background sync with API
+async function syncLiveNews() {
     try {
-        const res = await fetch('/api/announcement.php');
+        const res = await fetch('/api/news.php');
         if (res.ok) {
             const data = await res.json();
-            if (data && data.data && data.data.message) {
-                document.getElementById('top-ticker-msg').textContent = data.data.message;
+            if (data && data.success && Array.isArray(data.data) && data.data.length > 0) {
+                // Merge database articles with default articles (avoiding duplicates)
+                const apiItems = data.data;
+                const existingIds = new Set(apiItems.map(x => x.id));
+                const remainingDefaults = defaultNews.filter(x => !existingIds.has(x.id));
+                allNews = [...apiItems, ...remainingDefaults];
+                renderNews();
+            }
+        }
+    } catch (e) {
+        console.warn('API sync fallback to bundled news', e);
+    }
+
+    // Also sync ticker
+    try {
+        const resAnn = await fetch('/api/announcement.php');
+        if (resAnn.ok) {
+            const annData = await resAnn.json();
+            if (annData && annData.data && annData.data.message) {
+                const el = document.getElementById('top-ticker-msg');
+                if (el) el.textContent = annData.data.message;
             }
         }
     } catch(e){}
 }
 
-loadAnnouncement();
-fetchNews();
+// Initial immediate render
+renderNews();
+// Then sync live in background
+syncLiveNews();
 </script>
 </body>
 </html>
