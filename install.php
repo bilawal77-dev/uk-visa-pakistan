@@ -112,6 +112,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
+            // Create admin_users table
+            $pdo->exec("CREATE TABLE IF NOT EXISTS `admin_users` (
+                `id` int(11) NOT NULL AUTO_INCREMENT,
+                `username` varchar(100) NOT NULL UNIQUE,
+                `password` varchar(255) NOT NULL,
+                `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+
+            $checkAdmin = $pdo->query("SELECT COUNT(*) AS cnt FROM `admin_users`")->fetch();
+            if (($checkAdmin['cnt'] ?? 0) == 0) {
+                $pdo->exec("INSERT INTO `admin_users` (`username`, `password`) VALUES ('admin', 'ukvisa2026')");
+            }
+
             // Write api/config.php
             $configContent = "<?php\n";
             $configContent .= "/**\n * UK Visa Pakistan - Database Configuration\n * Generated automatically by install.php\n */\n\n";

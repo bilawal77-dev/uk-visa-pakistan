@@ -36,10 +36,11 @@ define('DB_PASS', 'your_database_password');
 ```
 Or import `database.sql` directly via phpMyAdmin.
 
-### 3. Admin Login
+### 3. Admin Login & Credentials
 - URL: `/admin/`
-- Default Username: `admin`
-- Default Password: `ukvisa2026` (or `admin`)
+- **Default Username:** `admin`
+- **Default Password:** `ukvisa2026`
+- **Change Password:** Go to the **"Password & Security"** tab or click the **"Change Password"** button in the top navigation bar to set your new custom username and password.
 
 ---
 &copy; 2026 UK Visa Pakistan. All rights reserved.

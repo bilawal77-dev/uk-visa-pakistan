@@ -78,4 +78,21 @@ INSERT INTO `articles` (`id`, `title`, `slug`, `category`, `catLabel`, `priority
 
 ON DUPLICATE KEY UPDATE `title` = VALUES(`title`), `excerpt` = VALUES(`excerpt`), `content` = VALUES(`content`);
 
+-- --------------------------------------------------------
+-- Table structure for table `admin_users`
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `admin_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL UNIQUE,
+  `password` varchar(255) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Insert default admin user credentials
+INSERT INTO `admin_users` (`id`, `username`, `password`) VALUES
+(1, 'admin', 'ukvisa2026')
+ON DUPLICATE KEY UPDATE `username` = VALUES(`username`);
+
 COMMIT;
