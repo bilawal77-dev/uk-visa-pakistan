@@ -47,6 +47,18 @@ $insertedId = null;
 
 if ($pdo !== null) {
     try {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS `leads` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) NOT NULL,
+            `phone` varchar(100) NOT NULL,
+            `email` varchar(255) NOT NULL,
+            `visa_route` varchar(255) NOT NULL,
+            `message` text DEFAULT NULL,
+            `status` enum('new','contacted','completed') NOT NULL DEFAULT 'new',
+            `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+
         $stmt = $pdo->prepare("
             INSERT INTO `leads` (`name`, `phone`, `email`, `visa_route`, `message`, `status`)
             VALUES (:name, :phone, :email, :visa_route, :message, 'new')
@@ -65,26 +77,29 @@ if ($pdo !== null) {
     }
 }
 
-// Fallback: log to JSON file if MySQL is not yet configured
-if (!$savedToDb) {
-    $backupFile = __DIR__ . '/leads_backup.json';
-    $records = [];
-    if (file_exists($backupFile)) {
-        $records = json_decode(@file_get_contents($backupFile), true) ?: [];
-    }
-    $insertedId = 'lead-' . time();
-    $records[] = [
-        'id'         => $insertedId,
-        'name'       => $name,
-        'phone'      => $phone,
-        'email'      => $email,
-        'visa_route' => $visaRoute,
-        'message'    => $message,
-        'status'     => 'new',
-        'created_at' => date('Y-m-d H:i:s')
-    ];
-    @file_put_contents($backupFile, json_encode($records, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+// Always maintain backup / file fallback so admin can view inquiries in all environments
+$backupFile = __DIR__ . '/leads_backup.json';
+$records = [];
+if (file_exists($backupFile)) {
+    $records = json_decode(@file_get_contents($backupFile), true) ?: [];
 }
+if (!$insertedId) {
+    $insertedId = 'lead-' . time();
+}
+$newRecord = [
+    'id'         => $insertedId,
+    'name'       => $name,
+    'phone'      => $phone,
+    'email'      => $email,
+    'visaRoute'  => $visaRoute,
+    'visa_route' => $visaRoute,
+    'message'    => $message,
+    'status'     => 'new',
+    'date'       => date('d M Y, H:i'),
+    'created_at' => date('Y-m-d H:i:s')
+];
+array_unshift($records, $newRecord);
+@file_put_contents($backupFile, json_encode($records, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
 // Email notification to Admin
 $adminEmail = defined('ADMIN_EMAIL') ? ADMIN_EMAIL : 'info@ukvisapakistan.com';

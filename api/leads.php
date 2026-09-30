@@ -36,7 +36,19 @@ if ($method === 'GET') {
     $backupFile = __DIR__ . '/leads_backup.json';
     $leads = [];
     if (file_exists($backupFile)) {
-        $leads = json_decode(@file_get_contents($backupFile), true) ?: [];
+        $raw = json_decode(@file_get_contents($backupFile), true) ?: [];
+        foreach ($raw as $item) {
+            $leads[] = [
+                'id'        => $item['id'] ?? ('lead-' . uniqid()),
+                'name'      => $item['name'] ?? '',
+                'phone'     => $item['phone'] ?? '',
+                'email'     => $item['email'] ?? '',
+                'visaRoute' => $item['visaRoute'] ?? ($item['visa_route'] ?? 'General Visa'),
+                'message'   => $item['message'] ?? '',
+                'date'      => $item['date'] ?? ($item['created_at'] ?? date('d M Y, H:i')),
+                'status'    => $item['status'] ?? 'new'
+            ];
+        }
     }
     echo json_encode(['success' => true, 'data' => $leads, 'source' => 'file_fallback']);
     exit;
